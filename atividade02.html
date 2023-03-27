@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Situação da turma</h2>
+    <hr>
+    <p>
+        nome: <input type="text" id="inNome">
+    </p>
+
+    <p>
+        nota 1°: <input type="text" id="inNota1">
+    </p>
+
+    <p>
+        nota 2°: <input type="text" id="inNota2">
+    </p>
+
+    <p>
+        <button id="btnCalcularMedia">Media Aluno</button>
+        <button id="btnCalcularMediaTurma">Media Turma</button>
+    </p>
+    <h3 id="outMediaAluno"></h3>
+    <h3 id="outSituacaoAluno"></h3>
+    <h3 id="outMediaTurma"></h3>
+
+    <script>
+        const inNome = document.getElementById('inNome')
+        const inNota1 = document.getElementById('inNota1')
+        const inNota2 = document.getElementById('inNota2')
+        const outMediaAluno = document.getElementById('outMediaAluno')
+        const outSituacaoAluno = document.getElementById('outSituacaoAluno')
+        const outMediaTurma = document.getElementById('outMediaTurma')
+
+        const notasTurma = []
+
+        const btnCalcularMedia = document.getElementById('btnCalcularMedia')
+        btnCalcularMedia.addEventListener('click', () =>{
+            let nome = inNome.value
+            let nota1 = Number(inNota1.value)
+            let nota2 = Number(inNota2.value)
+
+            if(nota1 > 10 || nota2 > 10 || isNaN(nota1) || isNaN (nota2)){
+                alert('Digite um valor válido')
+                return
+            }
+            let media = (nota1 + nota2) / 2
+            console.log(media)
+            notasTurma.push(media)
+            console.log(notasTurma)
+            outMediaAluno.textContent = `Média das notas ${media.toFixed(2)}`
+            if(media >= 7 && media <= 10){
+                outSituacaoAluno.textContent = `Parabéns ${nome}! Você foi aprovado`
+                outSituacaoAluno.style.color = 'blue'
+            }else if(media >=3 && media < 7){
+                outSituacaoAluno.textContent = `Atenção ${nome}! Você está em recuperação`
+                outSituacaoAluno.style.color = 'green'
+            }else if(media >= 0 && media < 3){
+                outSituacaoAluno.textContent = `Ops ${nome}! Você foi Reprovado!`
+                outSituacaoAluno.style.color = 'red'
+            }else{
+                outSituacaoAluno.textContent = `Digite um número válido`
+            }
+        })
+
+        const btnCalcularMediaTurma = document.getElementById(' btnCalcularMediaTurma')
+        btnCalcularMediaTurma.addEventListener('click', () =>{
+            let mediaTurma = 0
+            for(let i = 0; i < notasTurma.length; i++){
+                mediaTurma = mediaTurma + notasTurma[i]
+            }
+            outMediaTurma.textContent = `A média da turma ${(mediaTurma/notasTurma.length.toFixed(2))}`
+        })
+    </script>
+</body>
+</html>
